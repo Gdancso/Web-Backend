@@ -12,9 +12,9 @@ module.exports = function(app) {
   app.get('/statisztika', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: '',
+      host: 's1.siralycore.hu',
+      user: 'u4_9RLV2vf67y',
+      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
       database: 's4_Project_M'
     })
     
@@ -37,9 +37,9 @@ module.exports = function(app) {
 app.get('/rend_pont', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: '',
+      host: 's1.siralycore.hu',
+      user: 'u4_9RLV2vf67y',
+      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
       database: 's4_Project_M'
     })
     
@@ -60,9 +60,9 @@ app.get('/rend_pont', (req, res) => {
   app.get('/rend_halal', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: '',
+      host: 's1.siralycore.hu',
+      user: 'u4_9RLV2vf67y',
+      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
       database: 's4_Project_M'
     })
     
@@ -83,9 +83,9 @@ app.get('/rend_pont', (req, res) => {
   app.get('/rend_ido', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: '',
+      host: 's1.siralycore.hu',
+      user: 'u4_9RLV2vf67y',
+      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
       database: 's4_Project_M'
     })
     
@@ -107,9 +107,9 @@ app.get('/rend_pont', (req, res) => {
   app.get('/rend_date', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: '',
+      host: 's1.siralycore.hu',
+      user: 'u4_9RLV2vf67y',
+      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
       database: 's4_Project_M'
     })
     
@@ -131,9 +131,9 @@ app.get('/rend_pont', (req, res) => {
 app.post('/ertekeles', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: '',
+      host: 's1.siralycore.hu',
+      user: 'u4_9RLV2vf67y',
+      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
       database: 's4_Project_M'
     })
     
@@ -156,15 +156,15 @@ app.post('/ertekeles', (req, res) => {
   app.get('/ertekeles_uzenet', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: '',
+      host: 's1.siralycore.hu',
+      user: 'u4_9RLV2vf67y',
+      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
       database: 's4_Project_M'
     })
     
     connection.connect()
     
-    connection.query('SELECT * from ertekeles', function (err, rows, fields) {
+    connection.query('SELECT * from ertekeles order by ertekeles_date desc', function (err, rows, fields) {
       if (err) throw err
     
       console.log(rows);
@@ -177,12 +177,12 @@ app.post('/ertekeles', (req, res) => {
     
   })
   /*Admin---------------------------------------------------------------------------------------------------------------------*/
-  app.post('/admin_ertekeles', (req, res) => {
+  app.post('/admin_torles', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: '',
+      host: 's1.siralycore.hu',
+      user: 'u4_9RLV2vf67y',
+      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
       database: 's4_Project_M'
     })
     
@@ -203,19 +203,22 @@ app.post('/ertekeles', (req, res) => {
   
   })
   /*user törlés*/
+
   /*komment törlés*/
+  
   /*Search---------------------------------------------------------------------------------------------------------------------*/
   app.post('/kereses', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 'localhost',
-      user: 'root',
-      password: '',
+      host: 's1.siralycore.hu',
+      user: 'u4_9RLV2vf67y',
+      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
       database: 's4_Project_M'
     })
     
     connection.connect()
-    connection.query("SELECT * from ertekeles where ertekeles_uzenet like '%"+req.body.bevitel2+"%'", function (err, rows, fields) {
+    var szoveg= "like '%"+req.body.bevitel1+"%'";
+    connection.query("SELECT * from ertekeles where ertekeles_uzenet " +szoveg, function (err, rows, fields) {
         if (err) throw err
       
         console.log(rows);
