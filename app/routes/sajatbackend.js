@@ -12,9 +12,9 @@ module.exports = function(app) {
   app.get('/statisztika', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 's1.siralycore.hu',
-      user: 'u4_9RLV2vf67y',
-      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
+      host: 'localhost',
+      user: 'root',
+      password: '',
       database: 's4_Project_M'
     })
     
@@ -32,14 +32,37 @@ module.exports = function(app) {
   
     
   })
-  /*------------------------------------------------------------------------------------------------------------*/
+  /*groupby------------------------------------------------------------------------------------------------------------*/
+  app.get('/groupby', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 's4_Project_M'
+    })
+    
+    connection.connect()
+    
+    connection.query('SELECT statisztika_nev, max(statisztika_level_id) AS elert, SUM(statisztika_pont) AS osszes_pont from statisztika group by statisztika_nev', function (err, rows, fields) {
+      if (err) throw err
+    
+      console.log(rows);
+      res.send(rows);
+    })
+    
+    connection.end()
+  
+  
+    
+  })
   /*rendezések-----------------------------------------------------------------------------------------------------*/
 app.get('/rend_pont', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 's1.siralycore.hu',
-      user: 'u4_9RLV2vf67y',
-      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
+      host: 'localhost',
+      user: 'root',
+      password: '',
       database: 's4_Project_M'
     })
     
@@ -60,9 +83,9 @@ app.get('/rend_pont', (req, res) => {
   app.get('/rend_halal', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 's1.siralycore.hu',
-      user: 'u4_9RLV2vf67y',
-      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
+      host: 'localhost',
+      user: 'root',
+      password: '',
       database: 's4_Project_M'
     })
     
@@ -83,9 +106,9 @@ app.get('/rend_pont', (req, res) => {
   app.get('/rend_ido', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 's1.siralycore.hu',
-      user: 'u4_9RLV2vf67y',
-      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
+      host: 'localhost',
+      user: 'root',
+      password: '',
       database: 's4_Project_M'
     })
     
@@ -107,9 +130,9 @@ app.get('/rend_pont', (req, res) => {
   app.get('/rend_date', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 's1.siralycore.hu',
-      user: 'u4_9RLV2vf67y',
-      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
+      host: 'localhost',
+      user: 'root',
+      password: '',
       database: 's4_Project_M'
     })
     
@@ -131,9 +154,9 @@ app.get('/rend_pont', (req, res) => {
 app.post('/ertekeles', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 's1.siralycore.hu',
-      user: 'u4_9RLV2vf67y',
-      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
+      host: 'localhost',
+      user: 'root',
+      password: '',
       database: 's4_Project_M'
     })
     
@@ -156,9 +179,9 @@ app.post('/ertekeles', (req, res) => {
   app.get('/ertekeles_uzenet', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 's1.siralycore.hu',
-      user: 'u4_9RLV2vf67y',
-      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
+      host: 'localhost',
+      user: 'root',
+      password: '',
       database: 's4_Project_M'
     })
     
@@ -180,18 +203,14 @@ app.post('/ertekeles', (req, res) => {
   app.post('/admin_torles', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 's1.siralycore.hu',
-      user: 'u4_9RLV2vf67y',
-      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
+      host: 'localhost',
+      user: 'root',
+      password: '',
       database: 's4_Project_M'
     })
     
     connection.connect()
-    let dt=new Date();
-    //let teljesdat=dt.getFullYear()+"-"+(dt.getMonth()+1)+"-"+dt.getDate();
     connection.query("delete from ertekeles where ertekeles_id="+req.body.bevitel1+"", function (err, rows, fields) {
-    //connection.query("INSERT INTO ertekeles  VALUES (NULL, 'wad', 'ddawda', '2022-01-06')", function (err, rows, fields) {  
-    
       if (err) throw err
     
       console.log("Sikeres törlés!")
@@ -202,17 +221,32 @@ app.post('/ertekeles', (req, res) => {
     
   
   })
-  /*user törlés*/
 
-  /*komment törlés*/
-  
+  /*komment törlés Egyszerű-------------------------------------------------------------------------------------------------------------------------*/
+  app.post('/admin_torles_egyszeru', (req, res) => {
+    var mysql = require('mysql')
+    var connection = mysql.createConnection({
+      host: 'localhost',
+      user: 'root',
+      password: '',
+      database: 's4_Project_M'
+    })
+    connection.connect()
+    connection.query("delete from ertekeles  where ertekeles_id="+req.body.bevitel1+"", function (err, rows, fields) {
+      if (err) throw err
+    
+      console.log("Sikeres törlés!")
+      res.send("Sikeres törlés!")
+    })
+    connection.end()
+  })
   /*Search---------------------------------------------------------------------------------------------------------------------*/
   app.post('/kereses', (req, res) => {
     var mysql = require('mysql')
     var connection = mysql.createConnection({
-      host: 's1.siralycore.hu',
-      user: 'u4_9RLV2vf67y',
-      password: 'Ir^TAk@I^WuhckV=xMuBXKNf',
+      host: 'localhost',
+      user: 'root',
+      password: '',
       database: 's4_Project_M'
     })
     
